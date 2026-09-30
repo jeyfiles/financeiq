@@ -1,0 +1,120 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import DecisionCard from '../components/DecisionCard.astro';
+import HomeProgress from '../components/islands/HomeProgress';
+import { SCENARIOS } from '../data/scenarios';
+import { STAGES, type Stage } from '../data/types';
+import { SITE, url, absolute } from '../lib/site';
+
+const stages: Stage[] = ['school', 'college', 'first-job'];
+const stageIntro: Record<Stage, string> = {
+  school: 'First money of your own, and the first people trying to take it.',
+  college: 'Big price tags, first borrowing and the true cost of a choice.',
+  'first-job': 'A regular paycheck, bills and your first credit card.',
+};
+const ld = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: SITE.name,
+  url: absolute(''),
+  description: SITE.description,
+  inLanguage: 'en',
+  author: { '@type': 'Person', name: SITE.author },
+  isPartOf: { '@type': 'WebSite', name: 'JeyInsights', url: 'https://jeyinsights.com/' },
+};
+---
+<BaseLayout title="Home" jsonLd={ld}>
+  <section class="fq-hero">
+    <div class="fq-wrap fq-hero__grid">
+      <div>
+        <p class="fq-eyebrow fq-hero__eyebrow">Finance IQ · Money skills for students and young adults</p>
+        <h1>Your money. <span class="fq-mark">Your move.</span></h1>
+        <p class="fq-lede fq-hero__lede">Make a money decision, see what happens next and learn one useful idea. About five minutes. No sign-up, and nothing to buy.</p>
+        <div class="fq-btn-row">
+          <a class="fq-btn fq-hero__btn" href={url('decisions/first-paycheck')}>Make your first money decision</a>
+          <a class="fq-btn fq-hero__btn-outline" href={url('check')}>Check your Finance IQ</a>
+        </div>
+      </div>
+      <div class="fq-hero__card" aria-hidden="true">
+        <p class="fq-hero__card-q">Your phone costs <span data-money="800">$800</span>. The shop offers 12 easy payments.</p>
+        <p class="fq-hero__card-a">At 20% interest plus a fee, you pay about <span data-money="914">$914</span>.</p>
+        <p class="fq-hero__card-foot">Save first, pay in parts, or buy cheaper? Try it.</p>
+      </div>
+    </div>
+  </section>
+
+  <HomeProgress client:idle />
+
+  <section class="fq-section" aria-labelledby="stages-title">
+    <div class="fq-wrap">
+      <p class="fq-eyebrow">Your Money. Your Move.</p>
+      <h2 id="stages-title">From school to college to your first paycheck</h2>
+      <p class="fq-lede">Six real situations. Each choice shows what happens right away and what it leads to later. Some have more than one good answer, depending on your goals.</p>
+      <div class="fq-stages">
+        {stages.map((st, i) => (
+          <div class="fq-stage">
+            <p class="fq-stage__num" aria-hidden="true">{i + 1}</p>
+            <h3 class="fq-stage__title">{STAGES[st]}</h3>
+            <p class="fq-stage__intro">{stageIntro[st]}</p>
+            <ul class="fq-stage__list">
+              {SCENARIOS.filter((s) => s.stage === st).map((s) => <li><DecisionCard s={s} headingLevel="h4" /></li>)}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="fq-section fq-section--alt" aria-labelledby="tools-title">
+    <div class="fq-wrap">
+      <h2 id="tools-title">Three more ways to build money skills</h2>
+      <ul class="fq-grid fq-tools">
+        <li><a class="fq-card fq-tool" href={url('check')}><h3>Check your Finance IQ</h3><p>Eight questions with an explanation for every answer, and a topic breakdown that tells you what to learn next.</p><span class="fq-tool__cta">Take the check <span aria-hidden="true">→</span></span></a></li>
+        <li><a class="fq-card fq-tool" href={url('lab')}><h3>Money Lab</h3><p>Three calculators: a savings goal, starting now versus later, and the real cost of paying in installments.</p><span class="fq-tool__cta">Open the lab <span aria-hidden="true">→</span></span></a></li>
+        <li><a class="fq-card fq-tool" href={url('learn')}><h3>Learn in 3 minutes</h3><p>Short lessons on spending plans, interest, inflation, credit, investment risk and scams.</p><span class="fq-tool__cta">Start a lesson <span aria-hidden="true">→</span></span></a></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="fq-section" aria-labelledby="world-title">
+    <div class="fq-wrap fq-prose">
+      <h2 id="world-title">Made for anywhere</h2>
+      <p>Money basics work the same way in every country. Pick your currency at the top of the page and every example changes to match. Example amounts are scaled so they feel realistic for a student. They are not local prices.</p>
+      <p>Where rules differ by country, such as taxes, credit scores or where to report a scam, the page says so and points to official sources.</p>
+      <div class="fq-note">
+        <p><strong>Coming next:</strong> a College Money Planner to compare tuition, housing, scholarships, travel and loans, and a Weekly Money Challenge.</p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .fq-hero { background: var(--ji-band); color: var(--ji-on-band); padding: var(--ji-s-8) 0 var(--ji-s-7); }
+  .fq-hero h1 { color: var(--ji-on-band); }
+  .fq-hero .fq-mark { background: linear-gradient(transparent 70%, var(--ji-highlight) 70%); }
+  .fq-hero__eyebrow { color: var(--ji-on-band); opacity: .92; }
+  .fq-hero__lede { color: var(--ji-on-band); }
+  .fq-hero__grid { display: grid; gap: var(--ji-s-6); align-items: center; }
+  @media (min-width: 900px) { .fq-hero__grid { grid-template-columns: 1.4fr 1fr; } }
+  .fq-hero__btn { background: var(--ji-band-btn-bg); color: var(--ji-band-btn-ink); }
+  .fq-hero__btn:hover { background: var(--ji-band-btn-hover); }
+  .fq-hero__btn-outline { color: var(--ji-on-band); border-color: var(--ji-band-outline); }
+  .fq-hero__btn-outline:hover { background: rgba(255, 255, 255, .1); }
+  .fq-hero__card { background: var(--ji-surface); color: var(--ji-ink); border-radius: var(--ji-r-lg); padding: var(--ji-s-5); box-shadow: var(--ji-shadow-lg); border-top: 6px solid var(--ji-highlight); }
+  .fq-hero__card-q { font-size: var(--ji-text-lead); font-weight: 700; }
+  .fq-hero__card-a { color: var(--ji-ink-2); }
+  .fq-hero__card-foot { margin: 0; font-size: var(--ji-text-sm); color: var(--ji-muted); }
+  .fq-section--alt { background: var(--ji-surface-2); border-block: 1px solid var(--ji-line); }
+  .fq-stages { display: grid; gap: var(--ji-s-5); margin-top: var(--ji-s-5); }
+  @media (min-width: 960px) { .fq-stages { grid-template-columns: repeat(3, 1fr); } }
+  .fq-stage__num { display: inline-grid; place-items: center; width: 36px; height: 36px; border-radius: 50%; background: var(--ji-brand); color: #fff; font-weight: 700; margin-bottom: var(--ji-s-2); }
+  .fq-stage__title { font-size: var(--ji-text-h2); margin-bottom: 4px; }
+  .fq-stage__intro { color: var(--ji-ink-2); }
+  .fq-stage__list { list-style: none; padding: 0; margin: 0; display: grid; gap: var(--ji-s-3); }
+  .fq-tools { list-style: none; padding: 0; margin: var(--ji-s-4) 0 0; }
+  .fq-tool { display: flex; flex-direction: column; gap: var(--ji-s-2); text-decoration: none; color: var(--ji-ink); height: 100%; }
+  .fq-tool:hover { box-shadow: var(--ji-shadow-md); }
+  .fq-tool h3 { margin: 0; }
+  .fq-tool p { color: var(--ji-ink-2); margin: 0; flex: 1; }
+  .fq-tool__cta { font-weight: 700; color: var(--ji-primary); }
+</style>

@@ -1,0 +1,17 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHeader from '../../components/PageHeader.astro';
+import Quiz from '../../components/islands/Quiz';
+import { url } from '../../lib/site';
+---
+<BaseLayout title="Check your Finance IQ" path="check" description="Eight quick money questions with an explanation for every answer. Get a topic breakdown and the lessons to try next. Free, no sign-up.">
+  <PageHeader eyebrow="Learning check" title="Check your Finance IQ" lede="Answer eight questions and see which money topics to learn next." crumbs={[{ label: 'Check your Finance IQ' }]} />
+  <div class="fq-wrap fq-check">
+    <Quiz client:load />
+    <noscript><p class="fq-note">The questions need JavaScript. You can still read the <a href={url('learn')}>three minute lessons</a>.</p></noscript>
+  </div>
+</BaseLayout>
+<style>
+  .fq-check { padding-top: var(--ji-s-6); }
+  .fq-check > * { max-width: 820px; }
+</style>

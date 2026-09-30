@@ -1,0 +1,44 @@
+---
+import { MAIN_SITE_LINKS, url, SITE } from '../lib/site';
+const year = new Date().getFullYear();
+---
+<footer class="fq-footer fq-no-print">
+  <div class="fq-wrap fq-footer__grid">
+    <div>
+      <p class="fq-footer__brand">JeyInsights <span aria-hidden="true">·</span> Insights That Shape Futures</p>
+      <p class="fq-footer__note">
+        {SITE.shortName} is for learning. It is not financial advice, and it does not recommend any product or investment.
+        There are no accounts: your progress is saved only in this browser. <a href={url('about')}>About and privacy</a>
+      </p>
+    </div>
+    <nav aria-label="More from JeyInsights">
+      <p class="fq-footer__head">More from JeyInsights</p>
+      <ul>{MAIN_SITE_LINKS.map((l) => <li><a href={l.href}>{l.label}</a></li>)}</ul>
+    </nav>
+    <nav aria-label="Finance IQ pages">
+      <p class="fq-footer__head">Finance IQ</p>
+      <ul>
+        <li><a href={url('decisions')}>Money decisions</a></li>
+        <li><a href={url('check')}>Check your Finance IQ</a></li>
+        <li><a href={url('lab')}>Money Lab</a></li>
+        <li><a href={url('learn')}>Learn in 3 minutes</a></li>
+        <li><a href={url('about')}>About and privacy</a></li>
+      </ul>
+    </nav>
+  </div>
+  <div class="fq-wrap">
+    <p class="fq-footer__small">© {year} Jeyadev. Made for students and young adults.</p>
+  </div>
+</footer>
+
+<style>
+  .fq-footer { margin-top: var(--ji-s-9); background: var(--ji-footer-bg); color: var(--ji-footer-ink); padding: var(--ji-s-7) 0 var(--ji-s-6); font-size: .9375rem; }
+  .fq-footer a { color: #FFFFFF; }
+  .fq-footer__grid { display: grid; gap: var(--ji-s-6); grid-template-columns: 1fr; }
+  @media (min-width: 760px) { .fq-footer__grid { grid-template-columns: 2fr 1fr 1fr; } }
+  .fq-footer__brand { font-family: var(--ji-font-head); font-size: 1.25rem; color: #FFFFFF; margin-bottom: var(--ji-s-2); }
+  .fq-footer__note { max-width: 40em; }
+  .fq-footer__head { font-weight: 700; color: #FFFFFF; margin-bottom: var(--ji-s-2); }
+  .fq-footer ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
+  .fq-footer__small { margin: var(--ji-s-6) 0 0; padding-top: var(--ji-s-4); border-top: 1px solid rgba(255, 255, 255, .15); font-size: var(--ji-text-sm); }
+</style>

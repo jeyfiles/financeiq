@@ -1,0 +1,32 @@
+{
+  "name": "jeyinsights-financeiq",
+  "type": "module",
+  "version": "0.1.0",
+  "private": true,
+  "description": "JeyInsights Finance IQ: interactive money skills for students and young adults. Served at jeyinsights.com/financeiq.",
+  "author": "Jeyadev",
+  "engines": { "node": ">=22.12.0" },
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build && node scripts/check-copy.mjs && node scripts/audit-site.mjs",
+    "preview": "astro preview",
+    "check:copy": "node scripts/check-copy.mjs",
+    "audit": "node scripts/audit-site.mjs",
+    "test": "vitest run && playwright test",
+    "test:unit": "vitest run",
+    "test:e2e": "playwright test",
+    "build:pages": "npm run build && node scripts/pages-output.mjs",
+    "check:live": "node scripts/check-live.mjs"
+  },
+  "dependencies": {
+    "@astrojs/preact": "^6.0.5",
+    "@astrojs/sitemap": "^3.7.4",
+    "astro": "^7.3.5",
+    "preact": "^10.29.8"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "^4.13.0",
+    "@playwright/test": "^1.56.0",
+    "vitest": "^5.0.2"
+  }
+}

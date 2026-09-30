@@ -1,0 +1,11 @@
+---
+import LabShell from '../../../components/LabShell.astro';
+import SavingsGoal from '../../../components/islands/SavingsGoal';
+---
+<LabShell title="Savings goal calculator" path="lab/savings-goal" description="Work out how much to save each month for a goal such as a laptop, a course fee or a trip, with or without interest." lede="How much do I need to save each month?" lesson={{ href: 'learn/make-a-spending-plan', label: 'Make a spending plan' }}>
+  <SavingsGoal client:load />
+  <Fragment slot="notes">
+    <h2>How it works</h2>
+    <p>The calculator assumes you save the same amount at the end of each month, and that any interest is added monthly. With no interest, it is simply what you still need divided by the number of months.</p>
+  </Fragment>
+</LabShell>

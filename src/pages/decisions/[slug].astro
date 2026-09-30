@@ -1,0 +1,42 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHeader from '../../components/PageHeader.astro';
+import Scenario from '../../components/islands/Scenario';
+import Paycheck from '../../components/islands/Paycheck';
+import { SCENARIOS } from '../../data/scenarios';
+import { lessonBySlug } from '../../data/lessons';
+import { STAGES } from '../../data/types';
+import { url } from '../../lib/site';
+
+export function getStaticPaths() {
+  return SCENARIOS.map((s) => ({ params: { slug: s.slug } }));
+}
+const { slug } = Astro.params;
+const i = SCENARIOS.findIndex((s) => s.slug === slug);
+const s = SCENARIOS[i];
+const next = SCENARIOS[(i + 1) % SCENARIOS.length];
+const lesson = lessonBySlug(s.lesson)!;
+const labNames: Record<string, string> = { 'savings-goal': 'Savings goal calculator', 'start-now-or-later': 'Start now or later calculator', 'real-cost': 'Real purchase cost calculator' };
+---
+<BaseLayout title={s.title} path={`decisions/${s.slug}`} ogType="article" description={s.summary}>
+  <PageHeader eyebrow={`${STAGES[s.stage]} · about ${s.minutes} minutes`} title={s.title} lede={s.summary} crumbs={[{ label: 'Money decisions', href: url('decisions') }, { label: s.title }]} />
+  <div class="fq-wrap fq-decision">
+    {s.kind === 'paycheck' ? <Paycheck client:load /> : <Scenario client:load slug={s.slug} />}
+    <aside class="fq-after" aria-labelledby="after-title">
+      <h2 id="after-title">Keep going</h2>
+      <ul class="fq-after__list">
+        <li><a href={url(`learn/${lesson.slug}`)}>Three minute lesson: {lesson.title}</a></li>
+        {s.lab && <li><a href={url(`lab/${s.lab}`)}>Money Lab: {labNames[s.lab]}</a></li>}
+        <li><a href={url(`decisions/${next.slug}`)}>Next decision: {next.title}</a></li>
+      </ul>
+      <p class="fq-disclaimer">This is a learning example with made up numbers, not financial advice. Amounts are scaled to your chosen currency and are not local prices.</p>
+    </aside>
+  </div>
+</BaseLayout>
+<style>
+  .fq-decision { display: grid; gap: var(--ji-s-5); padding-top: var(--ji-s-6); }
+  .fq-decision > * { max-width: 880px; width: 100%; }
+  .fq-after h2 { margin-top: 0; font-size: var(--ji-text-h3); }
+  .fq-after__list { padding-left: 1.2em; }
+  .fq-after__list li { margin-bottom: 6px; }
+</style>

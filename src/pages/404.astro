@@ -1,0 +1,21 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { url } from '../lib/site';
+---
+<BaseLayout title="Page not found" path="404.html" noindex description="This Finance IQ page could not be found. Try a money decision, the Finance IQ check or the Money Lab instead.">
+  <section class="fq-wrap fq-404">
+    <p class="fq-eyebrow">Error 404</p>
+    <h1>We could not find that page</h1>
+    <p class="fq-lede">The link may be old, or the page may have moved. Try one of these instead.</p>
+    <ul class="fq-404__links">
+      <li><a class="fq-btn fq-btn--primary" href={url()}>Finance IQ home</a></li>
+      <li><a class="fq-btn fq-btn--secondary" href={url('decisions')}>Money decisions</a></li>
+      <li><a class="fq-btn fq-btn--secondary" href={url('lab')}>Money Lab</a></li>
+    </ul>
+  </section>
+</BaseLayout>
+<style>
+  .fq-404 { padding-block: var(--ji-s-8); text-align: center; }
+  .fq-404 .fq-lede { margin-inline: auto; }
+  .fq-404__links { list-style: none; padding: 0; margin: var(--ji-s-5) 0 0; display: flex; flex-wrap: wrap; justify-content: center; gap: var(--ji-s-3); }
+</style>

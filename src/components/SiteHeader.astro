@@ -1,0 +1,125 @@
+---
+import BrandMark from './BrandMark.astro';
+import { NAV, SITE, url } from '../lib/site';
+import { CURRENCIES } from '../lib/money';
+
+const current = Astro.url.pathname;
+---
+<header class="fq-header fq-no-print">
+  <div class="fq-wrap fq-header__row">
+    <a class="fq-brand" href={url()} aria-label="Finance IQ home">
+      <BrandMark size={40} />
+      <span class="fq-brand__text">JeyInsights<span class="fq-brand__sub">Finance IQ</span></span>
+    </a>
+
+    <div class="fq-currency" data-js-only>
+      <label for="fq-currency-select" class="fq-currency__label">Currency</label>
+      <select id="fq-currency-select" class="fq-currency__select">
+        {CURRENCIES.map((c) => <option value={c.code}>{c.code} {c.symbol === c.code ? '' : c.symbol}</option>)}
+      </select>
+    </div>
+
+    <button class="fq-menu-btn" type="button" aria-expanded="false" aria-controls="fq-nav">
+      <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/></svg>
+      Menu
+    </button>
+
+    <nav class="fq-nav" id="fq-nav" aria-label="Finance IQ">
+      <ul>
+        {NAV.map((item) => (
+          <li><a href={item.href} aria-current={item.match.test(current) ? 'page' : undefined}>{item.label}</a></li>
+        ))}
+      </ul>
+      <button class="fq-theme" type="button" aria-pressed="false" data-key={SITE.themeKey} data-js-only>
+        <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z" fill="currentColor"/></svg>
+        <span>Dark mode</span>
+      </button>
+    </nav>
+  </div>
+</header>
+
+<script>
+  import { readCurrency, saveCurrency, paintAmounts, CURRENCY_EVENT, currencyByCode } from '../lib/money';
+
+  // Currency: show saved or guessed currency, repaint every static amount when it changes.
+  const select = document.getElementById('fq-currency-select') as HTMLSelectElement | null;
+  const c = readCurrency();
+  document.documentElement.dataset.currency = c.code;
+  paintAmounts(c);
+  if (select) {
+    select.value = c.code;
+    select.addEventListener('change', () => saveCurrency(select.value));
+  }
+  window.addEventListener(CURRENCY_EVENT, (e) => {
+    const next = currencyByCode((e as CustomEvent<string>).detail);
+    if (next) { paintAmounts(next); if (select) select.value = next.code; }
+  });
+
+  // Phone menu
+  const btn = document.querySelector<HTMLButtonElement>('.fq-menu-btn');
+  const nav = document.getElementById('fq-nav');
+  if (btn && nav) {
+    const setOpen = (open: boolean) => { btn.setAttribute('aria-expanded', String(open)); nav.classList.toggle('is-open', open); };
+    btn.addEventListener('click', () => setOpen(btn.getAttribute('aria-expanded') !== 'true'));
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && btn.getAttribute('aria-expanded') === 'true') { setOpen(false); btn.focus(); }
+    });
+  }
+
+  // Dark mode (same saved choice as Learn AI and the main site)
+  const theme = document.querySelector<HTMLButtonElement>('.fq-theme');
+  if (theme) {
+    const key = theme.dataset.key as string;
+    const root = document.documentElement;
+    const isDark = () => root.dataset.theme === 'dark' || (!root.dataset.theme && matchMedia('(prefers-color-scheme: dark)').matches);
+    const sync = () => theme.setAttribute('aria-pressed', String(isDark()));
+    sync();
+    theme.addEventListener('click', () => {
+      const next = isDark() ? 'light' : 'dark';
+      root.dataset.theme = next;
+      try { localStorage.setItem(key, next); } catch { /* storage blocked */ }
+      sync();
+    });
+  }
+</script>
+
+<style>
+  .fq-header { background: var(--ji-surface); border-bottom: 1px solid var(--ji-line); position: relative; z-index: 20; }
+  .fq-header__row { display: flex; align-items: center; gap: var(--ji-s-4); min-height: 68px; }
+  .fq-brand { display: inline-flex; align-items: center; gap: var(--ji-s-3); text-decoration: none; color: var(--ji-ink); margin-right: auto; }
+  .fq-brand__text { font-family: var(--ji-font-head); font-size: 1.375rem; font-weight: 500; line-height: 1; }
+  .fq-brand__sub { display: block; margin-top: 4px; font-family: var(--ji-font-body); font-size: var(--ji-text-label); font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--ji-primary); }
+
+  .fq-nav { display: flex; align-items: center; gap: var(--ji-s-5); order: 1; }
+  .fq-nav ul { display: flex; gap: var(--ji-s-5); list-style: none; margin: 0; padding: 0; }
+  .fq-nav a { display: block; padding: 8px 0; color: var(--ji-ink-2); text-decoration: none; border-bottom: 3px solid transparent; font-size: 1rem; }
+  .fq-nav a:hover { color: var(--ji-ink); border-bottom-color: var(--ji-sage-200); }
+  .fq-nav a[aria-current='page'] { color: var(--ji-ink); font-weight: 700; border-bottom-color: var(--ji-brand); }
+  .fq-currency { order: 2; display: flex; align-items: center; gap: 6px; }
+  .fq-currency__label { font-size: var(--ji-text-sm); font-weight: 700; color: var(--ji-ink-2); }
+  .fq-currency__select { min-height: 44px; padding: 6px 8px; font: 700 var(--ji-text-sm)/1 var(--ji-font-body); color: var(--ji-ink); background: var(--ji-surface-2); border: 2px solid var(--ji-line-strong); border-radius: var(--ji-r-md); }
+
+  .fq-theme, .fq-menu-btn {
+    display: inline-flex; align-items: center; gap: var(--ji-s-2); min-height: 44px; padding: 8px 12px;
+    font: 700 var(--ji-text-sm)/1 var(--ji-font-body); color: var(--ji-ink);
+    background: transparent; border: 2px solid var(--ji-line-strong); border-radius: var(--ji-r-md); cursor: pointer;
+  }
+  .fq-theme:hover, .fq-menu-btn:hover { background: var(--ji-surface-2); }
+  .fq-theme[aria-pressed='true'] { background: var(--ji-primary-soft); }
+  .fq-menu-btn { display: none; order: 3; }
+
+  @media (max-width: 1099px) {
+    .fq-menu-btn { display: inline-flex; }
+    .fq-nav { display: none; position: absolute; left: 0; right: 0; top: 100%; background: var(--ji-surface); border-bottom: 1px solid var(--ji-line); box-shadow: var(--ji-shadow-md); flex-direction: column; align-items: stretch; gap: var(--ji-s-3); padding: var(--ji-s-3) var(--ji-s-4) var(--ji-s-5); }
+    .fq-nav.is-open { display: flex; }
+    .fq-nav ul { flex-direction: column; gap: 0; }
+    .fq-nav a { padding: 12px 4px 12px 12px; border-bottom: 1px solid var(--ji-line); border-left: 4px solid transparent; }
+    .fq-nav a[aria-current='page'] { border-bottom-color: var(--ji-line); border-left-color: var(--ji-brand); }
+    .fq-theme { align-self: flex-start; }
+    .fq-header__row { gap: var(--ji-s-2); }
+  }
+  @media (max-width: 460px) {
+    .fq-currency__label { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+    .fq-brand__text { font-size: 1.2rem; }
+  }
+</style>

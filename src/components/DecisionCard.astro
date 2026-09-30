@@ -1,0 +1,21 @@
+---
+import type { Scenario } from '../data/types';
+import { STAGES } from '../data/types';
+import { url } from '../lib/site';
+interface Props { s: Scenario; headingLevel?: 'h2' | 'h3' }
+const { s, headingLevel: H = 'h3' } = Astro.props;
+---
+<a class="fq-card fq-dcard" href={url(`decisions/${s.slug}`)}>
+  <span class="fq-dcard__meta"><span class="fq-chip">{STAGES[s.stage]}</span> <span class="fq-meta">{s.minutes} min</span> <span class="fq-chip fq-chip--done" data-done-for={`decision:${s.slug}`} hidden>Done</span></span>
+  <H class="fq-dcard__title">{s.title}</H>
+  <p class="fq-dcard__text">{s.summary}</p>
+  <span class="fq-dcard__cta">Make your move <span aria-hidden="true">→</span></span>
+</a>
+<style>
+  .fq-dcard { display: flex; flex-direction: column; gap: var(--ji-s-2); text-decoration: none; color: var(--ji-ink); height: 100%; }
+  .fq-dcard:hover { box-shadow: var(--ji-shadow-md); border-color: var(--ji-sage-300); }
+  .fq-dcard__meta { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+  .fq-dcard__title { font-size: var(--ji-text-h3); margin: 4px 0 0; }
+  .fq-dcard__text { color: var(--ji-ink-2); margin: 0; flex: 1; }
+  .fq-dcard__cta { font-weight: 700; color: var(--ji-primary); }
+</style>

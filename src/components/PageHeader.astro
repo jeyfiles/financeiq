@@ -1,0 +1,46 @@
+---
+// Standard page heading: optional breadcrumbs, eyebrow, H1 and a short intro.
+import { url, absolute, SITE } from '../lib/site';
+
+interface Crumb { label: string; href?: string }
+interface Props { eyebrow?: string; title: string; lede?: string; crumbs?: Crumb[] }
+const { eyebrow, title, lede, crumbs } = Astro.props;
+// Breadcrumbs for search engines. The last crumb is this page.
+const pagePath = Astro.url.pathname.replace(/^\/financeiq\/?/, '');
+const breadcrumbLd = crumbs && crumbs.length > 0 ? {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [{ label: SITE.shortName, href: url() }, ...crumbs].map((c, i, all) => ({
+    '@type': 'ListItem', position: i + 1, name: c.label,
+    item: c.href ? absolute(c.href.replace(/^\/financeiq\/?/, '')) : i === all.length - 1 ? absolute(pagePath) : undefined,
+  })),
+} : null;
+---
+{breadcrumbLd && <script type="application/ld+json" set:html={JSON.stringify(breadcrumbLd)} />}
+<div class="fq-pagehead">
+  <div class="fq-wrap">
+    {crumbs && crumbs.length > 0 && (
+      <nav class="fq-crumbs" aria-label="Breadcrumb">
+        <ol>
+          <li><a href={url()}>Finance IQ</a></li>
+          {crumbs.map((c) => (
+            <li>{c.href ? <a href={c.href}>{c.label}</a> : <span aria-current="page">{c.label}</span>}</li>
+          ))}
+        </ol>
+      </nav>
+    )}
+    {eyebrow && <p class="fq-eyebrow">{eyebrow}</p>}
+    <h1>{title}</h1>
+    {lede && <p class="fq-lede">{lede}</p>}
+    <slot />
+  </div>
+</div>
+
+<style>
+  .fq-pagehead { padding: var(--ji-s-7) 0 var(--ji-s-5); background: var(--ji-surface-2); border-bottom: 1px solid var(--ji-line); }
+  .fq-pagehead h1 { font-size: clamp(2rem, 4.5vw, 2.75rem); }
+  .fq-pagehead .fq-lede { margin-bottom: 0; }
+  .fq-crumbs ol { display: flex; flex-wrap: wrap; gap: 4px 0; list-style: none; margin: 0 0 var(--ji-s-4); padding: 0; font-size: var(--ji-text-sm); color: var(--ji-muted); }
+  .fq-crumbs li + li::before { content: '/'; margin: 0 8px; color: var(--ji-line-strong); }
+  .fq-crumbs a { color: var(--ji-ink-2); }
+</style>

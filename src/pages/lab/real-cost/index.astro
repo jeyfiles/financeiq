@@ -1,0 +1,11 @@
+---
+import LabShell from '../../../components/LabShell.astro';
+import RealCost from '../../../components/islands/RealCost';
+---
+<LabShell title="Real purchase cost" path="lab/real-cost" description="Compare paying upfront with an installment plan. Add interest and fees to see the monthly payment and the total you really pay." lede="Pay upfront or in installments?" lesson={{ href: 'learn/credit-and-borrowing', label: 'Credit and borrowing basics' }}>
+  <RealCost client:load />
+  <Fragment slot="notes">
+    <h2>How it works</h2>
+    <p>The plan is worked out like a loan with equal monthly payments. The one-time fee is added to the total. Late fees are not included, because they depend on the plan. Read the terms for them.</p>
+  </Fragment>
+</LabShell>

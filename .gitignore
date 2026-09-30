@@ -1,0 +1,25 @@
+# Dependencies and build output (Cloudflare builds these itself)
+node_modules/
+dist/
+dist-pages/
+.astro/
+.wrangler/
+
+# Test and report output
+test-results/
+playwright-report/
+reports/
+
+# Working notes and output dumps from planning sessions. Not part of the site.
+FINANCEIQ_PROGRESS.md
+PLAN.md
+notes/
+Claude outputs/
+screenshots/
+
+# Editor and OS files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+*.log

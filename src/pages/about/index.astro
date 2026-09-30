@@ -1,0 +1,36 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHeader from '../../components/PageHeader.astro';
+import { SITE } from '../../lib/site';
+---
+<BaseLayout title="About and privacy" path="about" description="Who makes JeyInsights Finance IQ, what it is for, how amounts in your currency work and how your progress is kept on your device.">
+  <PageHeader eyebrow="About" title="About and privacy" lede="Finance IQ is a free project by Jeyadev that helps students and young adults practise money decisions. It has no accounts, no ads and nothing to sell." crumbs={[{ label: 'About and privacy' }]} />
+  <div class="fq-wrap fq-prose fq-about">
+    <h2>What Finance IQ is, and is not</h2>
+    <p>Finance IQ teaches general money ideas through short decisions, calculators and lessons. It is not financial, legal or tax advice. It does not recommend any bank, card, fund or investment, and it does not earn money from any of them.</p>
+    <p>The Finance IQ check gives a learning score. It shows which topics to study next. It is not a test of intelligence or a measure of financial readiness.</p>
+    <h2>Amounts and currencies</h2>
+    <p>Every example is written once and shown in the currency you pick at the top of the page. Amounts are scaled so a student example feels realistic in each currency. They are not exchange rates and not local prices. Interest and inflation rates in the examples are also examples: real rates differ by country and change over time.</p>
+    <h2>What is saved, and where</h2>
+    <p>Your currency, quiz result and the decisions, lessons and calculators you have tried are saved in your browser on this device. They are not sent to JeyInsights or anyone else. Everything Finance IQ saves uses names that start with <code>{SITE.storagePrefix}</code>. The dark mode choice is shared with the rest of JeyInsights.</p>
+    <div class="fq-btn-row" data-js-only>
+      <button type="button" class="fq-btn fq-btn--secondary" data-clear>Clear my Finance IQ progress</button>
+    </div>
+    <p class="fq-help" data-clear-msg aria-live="polite"></p>
+    <h2>What is not collected</h2>
+    <p>No name, email address or payment detail is collected. There is no login and no advertising. The site may use Cloudflare Web Analytics, which counts page visits without cookies.</p>
+    <h2>Sources</h2>
+    <p>The lessons follow the ideas in the CFPB youth financial education framework, which puts habits and decision making next to knowledge. Each lesson lists its sources. Where rules differ by country, lessons link to official regulators.</p>
+    <h2>Questions or mistakes</h2>
+    <p>If you spot a mistake, please use the contact options on <a href="https://jeyinsights.com/">jeyinsights.com</a>.</p>
+  </div>
+</BaseLayout>
+<script>
+  import { clearAll } from '../../lib/storage';
+  const btn = document.querySelector<HTMLButtonElement>('[data-clear]');
+  const msg = document.querySelector<HTMLElement>('[data-clear-msg]');
+  btn?.addEventListener('click', () => { clearAll(); if (msg) msg.textContent = 'Your Finance IQ progress on this device has been cleared.'; });
+</script>
+<style>
+  .fq-about { padding-top: var(--ji-s-4); }
+</style>

@@ -1,0 +1,21 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHeader from '../../components/PageHeader.astro';
+import DecisionCard from '../../components/DecisionCard.astro';
+import { SCENARIOS } from '../../data/scenarios';
+import { STAGES, type Stage } from '../../data/types';
+const stages: Stage[] = ['school', 'college', 'first-job'];
+---
+<BaseLayout title="Money decisions" path="decisions" description="Six money decisions for students and young adults: a first paycheck, a new phone, two colleges, a scam, subscriptions and a first credit card bill.">
+  <PageHeader eyebrow="Your Money. Your Move." title="Money decisions" lede="Pick a situation, make your choice and see what happens right away and later on. Each one takes about five minutes." crumbs={[{ label: 'Money decisions' }]} />
+  <div class="fq-wrap">
+    {stages.map((st) => (
+      <section aria-labelledby={`st-${st}`}>
+        <h2 id={`st-${st}`}>{STAGES[st]}</h2>
+        <ul class="fq-grid">
+          {SCENARIOS.filter((s) => s.stage === st).map((s) => <li><DecisionCard s={s} /></li>)}
+        </ul>
+      </section>
+    ))}
+  </div>
+</BaseLayout>

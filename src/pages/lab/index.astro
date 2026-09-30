@@ -1,0 +1,38 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHeader from '../../components/PageHeader.astro';
+import { url } from '../../lib/site';
+const labs = [
+  { slug: 'savings-goal', title: 'Savings goal', q: 'How much do I need to save each month?', text: 'Enter a goal, a date and what you already have. See the monthly amount and how your savings build up.' },
+  { slug: 'start-now-or-later', title: 'Start now or later', q: 'What does waiting a few years cost?', text: 'Compare the same monthly amount started now and a few years later. Change the return to see the range.' },
+  { slug: 'real-cost', title: 'Real purchase cost', q: 'Pay upfront or in installments?', text: 'Add the interest and fees to see the total you really pay, and the monthly payment you would sign up for.' },
+];
+---
+<BaseLayout title="Money Lab" path="lab" description="Three money calculators for students: a savings goal, starting now versus later, and the real cost of installments. Change the numbers and see what moves.">
+  <PageHeader eyebrow="Money Lab" title="Money Lab" lede="Change the numbers and watch the result move. Every calculator works in your chosen currency." crumbs={[{ label: 'Money Lab' }]} />
+  <div class="fq-wrap">
+    <ul class="fq-grid fq-labs">
+      {labs.map((l) => (
+        <li>
+          <a class="fq-card fq-labcard" href={url(`lab/${l.slug}`)}>
+            <span class="fq-chip fq-chip--done" data-done-for={`lab:${l.slug}`} hidden>Tried</span>
+            <h2>{l.title}</h2>
+            <p class="fq-labcard__q">{l.q}</p>
+            <p>{l.text}</p>
+            <span class="fq-labcard__cta">Open the calculator <span aria-hidden="true">→</span></span>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </div>
+</BaseLayout>
+<style>
+  .fq-labs { margin-top: var(--ji-s-6); }
+  .fq-labcard { display: flex; flex-direction: column; gap: var(--ji-s-2); text-decoration: none; color: var(--ji-ink); height: 100%; }
+  .fq-labcard:hover { box-shadow: var(--ji-shadow-md); }
+  .fq-labcard h2 { margin: 0; font-size: var(--ji-text-h3); }
+  .fq-labcard__q { font-weight: 700; margin: 0; }
+  .fq-labcard p:not(.fq-labcard__q) { color: var(--ji-ink-2); flex: 1; margin: 0; }
+  .fq-labcard__cta { font-weight: 700; color: var(--ji-primary); }
+  .fq-labcard .fq-chip { align-self: flex-start; }
+</style>

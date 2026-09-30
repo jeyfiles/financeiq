@@ -1,0 +1,12 @@
+---
+import LabShell from '../../../components/LabShell.astro';
+import StartEarly from '../../../components/islands/StartEarly';
+---
+<LabShell title="Start now or later" path="lab/start-now-or-later" description="Compare saving the same monthly amount starting now or a few years later, with an assumed yearly return you can change." lede="What does waiting a few years cost?" lesson={{ href: 'learn/interest-and-growth', label: 'How interest grows money and debt' }}>
+  <StartEarly client:load />
+  <Fragment slot="notes">
+    <h2>How it works</h2>
+    <p>Both savers put in the same amount each month and earn the same average return, added monthly. The early starter begins now; the late starter begins after the delay. Real investments rise and fall from year to year, so treat the return as a guess and try a few.</p>
+    <p>This calculator shows hypothetical growth only. It does not include inflation, taxes or fees, which all reduce what you end up with.</p>
+  </Fragment>
+</LabShell>

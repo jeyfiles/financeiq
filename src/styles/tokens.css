@@ -1,0 +1,142 @@
+/* JeyInsights brand tokens (approved 2026-09-26: sage from the logo, clay accent, Oswald headings).
+   These --ji-* tokens are meant to be reused across jeyinsights.com later.
+   Finance IQ component classes use the fq- prefix. */
+
+@font-face {
+  font-family: 'Oswald';
+  font-style: normal;
+  font-weight: 200 700;
+  font-display: swap;
+  src: url('/financeiq/fonts/oswald-latin-var.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Atkinson Hyperlegible Next';
+  font-style: normal;
+  font-weight: 200 800;
+  font-display: swap;
+  src: url('/financeiq/fonts/atkinson-next-latin-var.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+:root {
+  color-scheme: light;
+  /* Sage scale from the logo colour #6F907B */
+  --ji-sage-50: #F2F6F3;
+  --ji-sage-100: #E7EFE9;
+  --ji-sage-200: #CFDDD3;
+  --ji-sage-300: #A9C1B1;
+  --ji-sage-500: #6F907B;
+  --ji-sage-600: #52745F; /* bands with small white text: 5.2:1 */
+  --ji-sage-700: #3F6450;
+  --ji-sage-800: #304D3D;
+  --ji-sage-900: #1F2A24;
+
+  --ji-bg: #FBFAF6;
+  --ji-surface: #FFFFFF;
+  --ji-surface-2: var(--ji-sage-50);
+  --ji-band: var(--ji-sage-600);
+  --ji-on-band: #FFFFFF;
+  --ji-band-btn-bg: #FFFFFF;
+  --ji-band-btn-ink: #1F2A24;
+  --ji-band-btn-hover: #E7EFE9;
+  --ji-band-outline: rgba(255, 255, 255, .9);
+  --ji-line: #E3E6DF;
+  --ji-line-strong: #758A7D;
+  --ji-ink: #1F2A24;
+  --ji-ink-2: #3B4A42;
+  --ji-muted: #5B6A61;
+  --ji-brand: var(--ji-sage-500);
+  --ji-primary: var(--ji-sage-700);
+  --ji-primary-hover: var(--ji-sage-800);
+  --ji-on-primary: #FFFFFF;
+  --ji-primary-soft: var(--ji-sage-100);
+  --ji-accent: #A6481F;
+  --ji-accent-soft: #F8E3D3;
+  --ji-highlight: #E3A13A;
+  --ji-highlight-soft: #FBEBCF;
+  --ji-focus: #A6481F;
+  --ji-l1: #3F6450;
+  --ji-l2: #1D5E73;
+  --ji-l3: #7A3D6B;
+  --ji-l4: #8A5B00;
+  --ji-l5: #A6481F;
+  --ji-success: #2E5A3E;
+  --ji-success-soft: #E3EFE6;
+  --ji-danger: #B0271B;
+  --ji-danger-soft: #FDE7E4;
+  --ji-code-bg: #1F2A24;
+  --ji-code-ink: #EEF3EF;
+  --ji-footer-bg: #1F2A24;
+  --ji-footer-ink: #DDE7E0;
+  /* Chart series: validated for colour-blind separation on light and dark surfaces */
+  --fq-series-1: #1570B0;
+  --fq-series-2: #C0561F;
+  --fq-grid: #E3E6DF;
+  --fq-good: #2E5A3E;
+  --fq-mixed: #8A5B00;
+  --fq-risky: #B0271B;
+
+  --ji-shadow-sm: 0 1px 2px rgba(31, 42, 36, .06), 0 2px 8px rgba(31, 42, 36, .06);
+  --ji-shadow-md: 0 8px 24px rgba(31, 42, 36, .10);
+  --ji-shadow-lg: 0 20px 48px rgba(31, 42, 36, .18);
+
+  --ji-r-sm: 6px;
+  --ji-r-md: 12px;
+  --ji-r-lg: 20px;
+  --ji-r-pill: 999px;
+
+  --ji-s-1: 4px; --ji-s-2: 8px; --ji-s-3: 12px; --ji-s-4: 16px; --ji-s-5: 24px;
+  --ji-s-6: 32px; --ji-s-7: 48px; --ji-s-8: 64px; --ji-s-9: 96px;
+
+  --ji-font-head: 'Oswald', 'Arial Narrow', 'Roboto Condensed', sans-serif;
+  --ji-font-body: 'Atkinson Hyperlegible Next', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --ji-font-mono: ui-monospace, 'Cascadia Code', Consolas, Menlo, monospace;
+
+  /* Type scale (base 17px, ratio about 1.25) */
+  --ji-text-label: .8125rem;  /* 13 */
+  --ji-text-sm: .875rem;      /* 14 */
+  --ji-text-body: 1.0625rem;  /* 17 */
+  --ji-text-lead: 1.1875rem;  /* 19 */
+  --ji-text-h3: 1.3125rem;    /* 21 */
+  --ji-text-h2: 1.625rem;     /* 26 */
+  --ji-text-h1: 2.125rem;     /* 34 */
+  --ji-text-display: clamp(2.2rem, 5.5vw, 3.3rem);
+
+  --ji-ease: cubic-bezier(.2, .7, .2, 1);
+  --ji-dur: 180ms;
+  --ji-measure: 70ch;
+  --ji-page: 1120px;
+}
+
+/* Dark theme: follows the device unless the reader picks one with the header toggle */
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --ji-bg: #141B17; --ji-surface: #1C2520; --ji-surface-2: #232E28;
+  --ji-band: #26352C; --ji-on-band: #EDF2EE; --ji-band-btn-bg: #9DC2AA; --ji-band-btn-ink: #141B17; --ji-band-btn-hover: #B7D4C1; --ji-band-outline: #9DC2AA;
+  --ji-line: #324038; --ji-line-strong: #5F7167;
+  --ji-ink: #EDF2EE; --ji-ink-2: #D2DCD5; --ji-muted: #A9B8AE;
+  --ji-brand: #6F907B; --ji-primary: #9DC2AA; --ji-primary-hover: #B7D4C1; --ji-on-primary: #141B17; --ji-primary-soft: #26352C;
+  --ji-accent: #EE9163; --ji-accent-soft: #3A2A20; --ji-highlight: #F0B85A; --ji-highlight-soft: #3A2E1C; --ji-focus: #F0B85A;
+  --ji-l1: #9DC2AA; --ji-l2: #86C6D8; --ji-l3: #DDA6CC; --ji-l4: #F0B85A; --ji-l5: #EE9163;
+  --ji-success: #9DC2AA; --ji-success-soft: #1F2E25; --ji-danger: #F29A8E; --ji-danger-soft: #3A1F1B;
+  --ji-code-bg: #0D120F; --ji-footer-bg: #0D120F;
+  --fq-series-1: #3593D0; --fq-series-2: #D9713C; --fq-grid: #324038; --fq-good: #9DC2AA; --fq-mixed: #F0B85A; --fq-risky: #F29A8E;
+  --ji-shadow-sm: 0 1px 2px rgba(0, 0, 0, .3); --ji-shadow-md: 0 8px 24px rgba(0, 0, 0, .4); --ji-shadow-lg: 0 20px 48px rgba(0, 0, 0, .5);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --ji-bg: #141B17; --ji-surface: #1C2520; --ji-surface-2: #232E28;
+    --ji-band: #26352C; --ji-on-band: #EDF2EE; --ji-band-btn-bg: #9DC2AA; --ji-band-btn-ink: #141B17; --ji-band-btn-hover: #B7D4C1; --ji-band-outline: #9DC2AA;
+    --ji-line: #324038; --ji-line-strong: #5F7167;
+    --ji-ink: #EDF2EE; --ji-ink-2: #D2DCD5; --ji-muted: #A9B8AE;
+    --ji-brand: #6F907B; --ji-primary: #9DC2AA; --ji-primary-hover: #B7D4C1; --ji-on-primary: #141B17; --ji-primary-soft: #26352C;
+    --ji-accent: #EE9163; --ji-accent-soft: #3A2A20; --ji-highlight: #F0B85A; --ji-highlight-soft: #3A2E1C; --ji-focus: #F0B85A;
+    --ji-l1: #9DC2AA; --ji-l2: #86C6D8; --ji-l3: #DDA6CC; --ji-l4: #F0B85A; --ji-l5: #EE9163;
+    --ji-success: #9DC2AA; --ji-success-soft: #1F2E25; --ji-danger: #F29A8E; --ji-danger-soft: #3A1F1B;
+    --ji-code-bg: #0D120F; --ji-footer-bg: #0D120F;
+    --fq-series-1: #3593D0; --fq-series-2: #D9713C; --fq-grid: #324038; --fq-good: #9DC2AA; --fq-mixed: #F0B85A; --fq-risky: #F29A8E;
+    --ji-shadow-sm: 0 1px 2px rgba(0, 0, 0, .3); --ji-shadow-md: 0 8px 24px rgba(0, 0, 0, .4); --ji-shadow-lg: 0 20px 48px rgba(0, 0, 0, .5);
+  }
+}

@@ -1,0 +1,30 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHeader from '../../components/PageHeader.astro';
+import { LESSONS } from '../../data/lessons';
+import { url, topicLabel } from '../../lib/site';
+---
+<BaseLayout title="Learn in 3 minutes" path="learn" description="Six short money lessons: spending plans, interest, inflation, credit and borrowing, investment risk and spotting scams. Each takes about three minutes.">
+  <PageHeader eyebrow="Learn in 3 minutes" title="Learn in 3 minutes" lede="One idea per lesson, a worked example with numbers, and a quick question to check yourself." crumbs={[{ label: 'Learn in 3 minutes' }]} />
+  <div class="fq-wrap">
+    <ol class="fq-grid fq-lessons">
+      {LESSONS.map((l, i) => (
+        <li>
+          <a class="fq-card fq-lcard" href={url(`learn/${l.slug}`)}>
+            <span class="fq-lcard__meta"><span class="fq-chip">{topicLabel(l.topic)}</span> <span class="fq-meta">{l.minutes} min</span> <span class="fq-chip fq-chip--done" data-done-for={`lesson:${l.slug}`} hidden>Read</span></span>
+            <h2><span class="fq-visually-hidden">Lesson {i + 1}: </span>{l.title}</h2>
+            <p>{l.summary}</p>
+          </a>
+        </li>
+      ))}
+    </ol>
+  </div>
+</BaseLayout>
+<style>
+  .fq-lessons { margin-top: var(--ji-s-6); }
+  .fq-lcard { display: flex; flex-direction: column; gap: var(--ji-s-2); text-decoration: none; color: var(--ji-ink); height: 100%; }
+  .fq-lcard:hover { box-shadow: var(--ji-shadow-md); }
+  .fq-lcard__meta { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+  .fq-lcard h2 { margin: 0; font-size: var(--ji-text-h3); }
+  .fq-lcard p { color: var(--ji-ink-2); margin: 0; }
+</style>

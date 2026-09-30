@@ -1,0 +1,22 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHeader from './PageHeader.astro';
+import { url } from '../lib/site';
+interface Props { title: string; path: string; description: string; lede: string; lesson: { href: string; label: string } }
+const { title, path, description, lede, lesson } = Astro.props;
+---
+<BaseLayout title={title} path={path} description={description}>
+  <PageHeader eyebrow="Money Lab" title={title} lede={lede} crumbs={[{ label: 'Money Lab', href: url('lab') }, { label: title }]} />
+  <div class="fq-wrap fq-lab">
+    <slot />
+    <div class="fq-lab__foot fq-prose">
+      <slot name="notes" />
+      <p>Learn the idea behind it: <a href={url(lesson.href)}>{lesson.label}</a>.</p>
+      <p class="fq-disclaimer">This calculator is for learning. Results depend on the numbers you enter and are not a prediction or financial advice. Real rates, fees and taxes differ by country and by product.</p>
+    </div>
+  </div>
+</BaseLayout>
+<style>
+  .fq-lab { padding-top: var(--ji-s-6); }
+  .fq-lab__foot { margin-top: var(--ji-s-6); }
+</style>

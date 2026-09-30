@@ -1,0 +1,16 @@
+---
+// Renders text that contains amounts written as {{1200}} (base units).
+// Each amount becomes <span data-money="1200">$1,200</span>; a small script shows it in the reader's currency.
+import { money, DEFAULT_CURRENCY } from '../lib/money';
+interface Props { text: string; as?: 'p' | 'span' | 'li' }
+const { text, as: Tag = 'span' } = Astro.props;
+const parts = text.split(/(\{\{[\d.]+\}\})/g).filter(Boolean).map((p) => {
+  const m = p.match(/^\{\{([\d.]+)\}\}$/);
+  if (!m) return { t: p };
+  const base = Number(m[1]);
+  const cents = !Number.isInteger(base);
+  const shown = cents ? `$${base.toFixed(2)}` : money(base, DEFAULT_CURRENCY);
+  return { base: m[1], shown, cents };
+});
+---
+<Tag>{parts.map((p) => ('t' in p ? p.t : <span class="fq-amt" data-money={p.base} data-cents={p.cents ? '' : undefined}>{p.shown}</span>))}</Tag>

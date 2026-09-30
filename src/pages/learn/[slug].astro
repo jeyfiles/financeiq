@@ -1,0 +1,118 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHeader from '../../components/PageHeader.astro';
+import MoneyText from '../../components/MoneyText.astro';
+import { LESSONS } from '../../data/lessons';
+import { url, topicLabel, absolute, SITE } from '../../lib/site';
+
+export function getStaticPaths() {
+  return LESSONS.map((l) => ({ params: { slug: l.slug } }));
+}
+const { slug } = Astro.params;
+const i = LESSONS.findIndex((l) => l.slug === slug);
+const l = LESSONS[i];
+const next = LESSONS[(i + 1) % LESSONS.length];
+const ld = {
+  '@context': 'https://schema.org',
+  '@type': 'LearningResource',
+  name: l.title,
+  description: l.summary,
+  url: absolute(`learn/${l.slug}`),
+  inLanguage: 'en',
+  timeRequired: `PT${l.minutes}M`,
+  learningResourceType: 'Lesson',
+  educationalLevel: 'Beginner',
+  author: { '@type': 'Person', name: SITE.author },
+  isPartOf: { '@type': 'WebSite', name: SITE.name, url: absolute('') },
+};
+---
+<BaseLayout title={l.title} path={`learn/${l.slug}`} ogType="article" description={l.summary} jsonLd={ld}>
+  <PageHeader eyebrow={`${topicLabel(l.topic)} · ${l.minutes} minute read`} title={l.title} lede={l.summary} crumbs={[{ label: 'Learn in 3 minutes', href: url('learn') }, { label: l.title }]} />
+  <article class="fq-wrap fq-prose fq-lesson">
+    <p class="fq-lesson__idea"><strong>The big idea.</strong> {l.bigIdea}</p>
+    {l.sections.map((s) => (
+      <section>
+        <h2>{s.heading}</h2>
+        {s.body.map((p) => <MoneyText as="p" text={p} />)}
+      </section>
+    ))}
+    <section class="fq-panel fq-lesson__example" aria-labelledby="example-title">
+      <h2 id="example-title">{l.example.title}</h2>
+      <ul>{l.example.lines.map((t) => <MoneyText as="li" text={t} />)}</ul>
+      <p class="fq-help">Amounts show in <span data-currency-name>US dollar ($)</span>. They are examples, not local prices.</p>
+    </section>
+    {l.countryNotes && (
+      <section aria-labelledby="country-title">
+        <h2 id="country-title">{l.countryNotes.title}</h2>
+        <p>{l.countryNotes.intro}</p>
+        <div class="fq-scroll">
+          <table class="fq-table">
+            <thead><tr><th scope="col">Country</th><th scope="col">Check who you are dealing with</th><th scope="col">Report a scam</th></tr></thead>
+            <tbody>
+              {l.countryNotes.rows.map((r) => (
+                <tr>
+                  <th scope="row">{r.place}</th>
+                  <td>{r.check && <a href={r.check.href} rel="noopener">{r.check.label}</a>}</td>
+                  <td>{r.report && <a href={r.report.href} rel="noopener">{r.report.label}</a>}{r.note && <p class="fq-help">{r.note}</p>}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </section>
+    )}
+    <section aria-labelledby="terms-title">
+      <h2 id="terms-title">Words to know</h2>
+      <dl class="fq-terms">{l.terms.map((t) => <div><dt>{t.term}</dt><dd>{t.meaning}</dd></div>)}</dl>
+    </section>
+    <section class="fq-panel" aria-labelledby="check-title">
+      <h2 id="check-title">Check yourself</h2>
+      <p><strong>{l.check.question}</strong></p>
+      <ol class="fq-lesson__opts" type="A">{l.check.options.map((o) => <li>{o}</li>)}</ol>
+      <details class="fq-others">
+        <summary>Show the answer</summary>
+        <p><strong>{String.fromCharCode(65 + l.check.answer)}. {l.check.options[l.check.answer]}</strong></p>
+        <p>{l.check.explain}</p>
+      </details>
+    </section>
+    <section aria-labelledby="next-title">
+      <h2 id="next-title">Try it next</h2>
+      <ul>
+        {l.tryNext.map((t) => <li><a href={url(t.href)}>{t.label}</a></li>)}
+        <li><a href={url(`learn/${next.slug}`)}>Next lesson: {next.title}</a></li>
+      </ul>
+      <div class="fq-btn-row" data-js-only>
+        <button type="button" class="fq-btn fq-btn--secondary" data-mark-read={`lesson:${l.slug}`} aria-pressed="false">Mark this lesson as read</button>
+      </div>
+    </section>
+    <section aria-labelledby="src-title">
+      <h2 id="src-title">Sources and further reading</h2>
+      <ul class="fq-sources">{l.sources.map((s) => <li><a href={s.url} rel="noopener">{s.title}</a></li>)}</ul>
+      <p class="fq-disclaimer">This lesson explains general ideas. It is not financial advice, and rules differ by country.</p>
+    </section>
+  </article>
+</BaseLayout>
+<script>
+  import { getProgress, markDone } from '../../lib/storage';
+  const btn = document.querySelector<HTMLButtonElement>('[data-mark-read]');
+  if (btn) {
+    const id = btn.dataset.markRead!;
+    const show = (read: boolean) => { btn.setAttribute('aria-pressed', String(read)); btn.textContent = read ? 'Marked as read' : 'Mark this lesson as read'; };
+    show(getProgress().done.includes(id));
+    btn.addEventListener('click', () => { markDone(id); show(true); });
+  }
+</script>
+<style>
+  .fq-lesson { padding-top: var(--ji-s-6); }
+  .fq-lesson__idea { font-size: var(--ji-text-lead); background: var(--ji-highlight-soft); border-left: 6px solid var(--ji-highlight); padding: var(--ji-s-4) var(--ji-s-5); border-radius: var(--ji-r-md); }
+  .fq-lesson__example { margin-top: var(--ji-s-6); }
+  .fq-lesson__example h2, .fq-lesson .fq-panel h2 { margin-top: 0; font-size: var(--ji-text-h3); }
+  .fq-lesson .fq-panel { margin-top: var(--ji-s-6); }
+  .fq-lesson__example li { margin-bottom: 6px; }
+  .fq-terms { display: grid; gap: var(--ji-s-3); margin: 0; }
+  .fq-terms dt { font-weight: 700; }
+  .fq-terms dd { margin: 0; color: var(--ji-ink-2); }
+  .fq-lesson__opts li { margin-bottom: 4px; }
+  .fq-sources li { margin-bottom: 4px; }
+  .fq-btn--secondary[aria-pressed='true'] { background: var(--ji-primary-soft); }
+</style>
