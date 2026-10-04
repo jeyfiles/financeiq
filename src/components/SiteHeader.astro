@@ -92,7 +92,7 @@ const current = Astro.url.pathname;
 
   .fq-nav { display: flex; align-items: center; gap: var(--ji-s-5); order: 1; }
   .fq-nav ul { display: flex; gap: var(--ji-s-5); list-style: none; margin: 0; padding: 0; }
-  .fq-nav a { display: block; padding: 8px 0; color: var(--ji-ink-2); text-decoration: none; border-bottom: 3px solid transparent; font-size: 1rem; }
+  .fq-nav a { display: block; white-space: nowrap; padding: 8px 0; color: var(--ji-ink-2); text-decoration: none; border-bottom: 3px solid transparent; font-size: 1rem; }
   .fq-nav a:hover { color: var(--ji-ink); border-bottom-color: var(--ji-sage-200); }
   .fq-nav a[aria-current='page'] { color: var(--ji-ink); font-weight: 700; border-bottom-color: var(--ji-brand); }
   .fq-currency { order: 2; display: flex; align-items: center; gap: 6px; }
@@ -107,6 +107,7 @@ const current = Astro.url.pathname;
   .fq-theme:hover, .fq-menu-btn:hover { background: var(--ji-surface-2); }
   .fq-theme[aria-pressed='true'] { background: var(--ji-primary-soft); }
   .fq-menu-btn { display: none; order: 3; }
+  .fq-theme, .fq-menu-btn, .fq-currency { white-space: nowrap; flex: none; }
 
   @media (max-width: 1099px) {
     .fq-menu-btn { display: inline-flex; }

@@ -1,12 +1,11 @@
 # Deploy Finance IQ to jeyinsights.com/financeiq
 
-Same pattern as Learn AI and TNEA Compass:
-
 ```
-visitor -> jeyinsights.com/financeiq/...  -> jeyinsights-proxy Worker -> financeiq.pages.dev/financeiq/...
+visitor -> jeyinsights.com/financeiq/...  -> jeyinsights-proxy Worker -> <project>.pages.dev/financeiq/...
 ```
 
-The Finance IQ source lives in its own GitHub repo and its own Cloudflare Pages project. After the first setup, every `git push` deploys.
+Same pattern as Learn AI and TNEA Compass. Finance IQ has its own GitHub repo and its own Cloudflare **Pages** project
+(create it from the Pages tab, not Workers: the Pages screen has no "Deploy command" box). After the first setup, every `git push` deploys.
 
 ## 1. Check it on your computer
 
@@ -36,29 +35,26 @@ git push -u origin main
 
 ## 3. Create the Cloudflare Pages project
 
-Cloudflare dashboard > Workers & Pages > Create > Pages > Connect to Git > **jeyfiles/financeiq**.
+Cloudflare dashboard > Workers & Pages > Create > **Pages** tab > Import an existing Git repository > **jeyfiles/financeiq**.
 
 | Setting | Value |
 |---|---|
-| Project name | `financeiq`. The address `financeiq.pages.dev` already belongs to another site, so Cloudflare will give yours a different one, such as `financeiq-abc.pages.dev`. Note it down |
+| Project name | `financeiq`. The address `financeiq.pages.dev` already belongs to another site, so Cloudflare gives yours a different one, such as `financeiq-abc.pages.dev`. Note it down |
 | Production branch | `main` |
 | Framework preset | None |
 | Build command | `npm run build:pages` |
 | Build output directory | `dist-pages` |
 | Environment variable | `NODE_VERSION` = `22` (the repo also has `.nvmrc`) |
 
-After the first build, open `https://<project>.pages.dev/financeiq/`. It should show Finance IQ.
-The bare `https://<project>.pages.dev/` sends you to jeyinsights.com/financeiq/, which will not work until step 4.
+After the build, open `https://<project>.pages.dev/financeiq/`. The bare `https://<project>.pages.dev/` sends you to jeyinsights.com/financeiq/.
 
 ## 4. Add Finance IQ to the jeyinsights-proxy Worker
 
 Workers & Pages > **jeyinsights-proxy** > Edit code.
 
 1. Paste the block from `deploy/proxy-worker/financeiq-block.js` next to the Learn AI block, before the final line that serves the rest of the site.
-2. Change `FINANCEIQ_ORIGIN` in the block to your project's pages.dev address from step 3.
-3. Deploy.
-
-Then Settings > Domains & Routes > Add route (zone jeyinsights.com):
+2. Change `FINANCEIQ_ORIGIN` in the block to your pages.dev address from step 3. Deploy.
+3. Settings > Domains & Routes > Add route (zone jeyinsights.com):
 
 | Route | Why |
 |---|---|

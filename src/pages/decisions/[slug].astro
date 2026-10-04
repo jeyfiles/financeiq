@@ -27,6 +27,7 @@ const labNames: Record<string, string> = { 'savings-goal': 'Savings goal calcula
       <ul class="fq-after__list">
         <li><a href={url(`learn/${lesson.slug}`)}>Three minute lesson: {lesson.title}</a></li>
         {s.lab && <li><a href={url(`lab/${s.lab}`)}>Money Lab: {labNames[s.lab]}</a></li>}
+        {s.slug === 'two-colleges' && <li><a href={url('college')}>College Money Planner: compare your real colleges</a></li>}
         <li><a href={url(`decisions/${next.slug}`)}>Next decision: {next.title}</a></li>
       </ul>
       <p class="fq-disclaimer">This is a learning example with made up numbers, not financial advice. Amounts are scaled to your chosen currency and are not local prices.</p>

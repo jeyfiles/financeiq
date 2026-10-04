@@ -30,10 +30,11 @@ export function absolute(path = ''): string {
 }
 
 export const NAV = [
-  { label: 'Money decisions', href: url('decisions'), match: /^\/financeiq\/decisions\// },
-  { label: 'Check your Finance IQ', href: url('check'), match: /^\/financeiq\/check\// },
+  { label: 'Decisions', href: url('decisions'), match: /^\/financeiq\/decisions\// },
+  { label: 'Finance IQ check', href: url('check'), match: /^\/financeiq\/check\// },
   { label: 'Money Lab', href: url('lab'), match: /^\/financeiq\/lab\// },
-  { label: 'Learn in 3 minutes', href: url('learn'), match: /^\/financeiq\/learn\// },
+  { label: 'College planner', href: url('college'), match: /^\/financeiq\/college\// },
+  { label: 'Lessons', href: url('learn'), match: /^\/financeiq\/learn\// },
 ] as const;
 
 export const MAIN_SITE_LINKS = [

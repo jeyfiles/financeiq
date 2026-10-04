@@ -242,3 +242,32 @@ input[type='range'].fq-range { width: 100%; accent-color: var(--ji-primary); min
 .fq-prefix span, .fq-suffix span { white-space: nowrap; }
 .fq-option.fq-option--right { background: var(--ji-success-soft); }
 .fq-option.fq-option--wrong { background: var(--ji-danger-soft); }
+
+/* College Money Planner */
+.fq-planner { display: grid; gap: var(--ji-s-6); }
+.fq-planner h2 { margin-top: 0; }
+.fq-planner__bar { display: grid; gap: var(--ji-s-2); }
+.fq-planner__actions { margin-top: 0; }
+.fq-planner__cols { display: grid; gap: var(--ji-s-4); grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr)); }
+.fq-planner__college { margin: 0; min-width: 0; }
+.fq-planner__name { font-weight: 700; }
+.fq-planner__sub { font-size: 1.0625rem; font-family: var(--ji-font-body); font-weight: 700; color: var(--ji-ink-2); margin: var(--ji-s-5) 0 var(--ji-s-3); padding-top: var(--ji-s-3); border-top: 1px solid var(--ji-line); }
+.fq-planner__remove { margin-top: var(--ji-s-3); }
+.fq-planner__two { display: grid; gap: var(--ji-s-4); }
+@media (min-width: 900px) { .fq-planner__two { grid-template-columns: 1fr 1fr; align-items: start; } }
+.fq-planner__two fieldset { margin: 0; min-width: 0; }
+.fq-planner__legend { font-size: var(--ji-text-h2); margin: 0 0 var(--ji-s-3); }
+.fq-planner__results { border-left: 6px solid var(--ji-brand); }
+.fq-planner__whatif { background: var(--ji-highlight-soft); border-radius: var(--ji-r-md); padding: var(--ji-s-3) var(--ji-s-4); margin-bottom: var(--ji-s-4); }
+.fq-planner__table caption { text-align: left; font-weight: 700; margin-bottom: var(--ji-s-2); }
+.fq-planner__total th, .fq-planner__total td { font-weight: 700; border-top: 2px solid var(--ji-line-strong); }
+.fq-planner__salary { margin-top: var(--ji-s-5); }
+.fq-planner__salary h3 { font-size: var(--ji-text-h3); }
+.fq-planner__salary li { margin-bottom: var(--ji-s-2); }
+.fq-planner__flag { margin-left: 8px; }
+.fq-check { display: flex; gap: 10px; align-items: flex-start; margin-bottom: var(--ji-s-4); }
+.fq-check input { width: 22px; height: 22px; margin: 2px 0 0; accent-color: var(--ji-primary); flex: none; }
+.fq-stack__seg { border-radius: 0; }
+.fq-bars__track .fq-stack__seg:nth-last-child(2) { border-radius: 0 4px 4px 0; }
+.fq-planner > *, .fq-planner__two > *, .fq-planner__cols > * { min-width: 0; }
+.fq-select { max-width: 100%; text-overflow: ellipsis; }

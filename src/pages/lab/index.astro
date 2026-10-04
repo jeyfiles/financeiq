@@ -24,10 +24,12 @@ const labs = [
         </li>
       ))}
     </ul>
+    <p class="fq-lab-more">Comparing colleges? Try the <a href={url('college')}>College Money Planner</a>.</p>
   </div>
 </BaseLayout>
 <style>
   .fq-labs { margin-top: var(--ji-s-6); }
+  .fq-lab-more { margin-top: var(--ji-s-5); }
   .fq-labcard { display: flex; flex-direction: column; gap: var(--ji-s-2); text-decoration: none; color: var(--ji-ink); height: 100%; }
   .fq-labcard:hover { box-shadow: var(--ji-shadow-md); }
   .fq-labcard h2 { margin: 0; font-size: var(--ji-text-h3); }

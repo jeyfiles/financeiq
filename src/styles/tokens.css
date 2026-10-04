@@ -73,6 +73,11 @@
   --fq-series-1: #1570B0;
   --fq-series-2: #C0561F;
   --fq-grid: #E3E6DF;
+  /* Four-part stacks (College Money Planner), validated in this order */
+  --fq-cat-1: #2F8F6B;
+  --fq-cat-2: #1570B0;
+  --fq-cat-3: #C0561F;
+  --fq-cat-4: #7B4FC4;
   --fq-good: #2E5A3E;
   --fq-mixed: #8A5B00;
   --fq-risky: #B0271B;
@@ -121,7 +126,7 @@
   --ji-l1: #9DC2AA; --ji-l2: #86C6D8; --ji-l3: #DDA6CC; --ji-l4: #F0B85A; --ji-l5: #EE9163;
   --ji-success: #9DC2AA; --ji-success-soft: #1F2E25; --ji-danger: #F29A8E; --ji-danger-soft: #3A1F1B;
   --ji-code-bg: #0D120F; --ji-footer-bg: #0D120F;
-  --fq-series-1: #3593D0; --fq-series-2: #D9713C; --fq-grid: #324038; --fq-good: #9DC2AA; --fq-mixed: #F0B85A; --fq-risky: #F29A8E;
+  --fq-series-1: #3593D0; --fq-series-2: #D9713C; --fq-cat-1: #3FA77A; --fq-cat-2: #3593D0; --fq-cat-3: #D9713C; --fq-cat-4: #A77BDB; --fq-grid: #324038; --fq-good: #9DC2AA; --fq-mixed: #F0B85A; --fq-risky: #F29A8E;
   --ji-shadow-sm: 0 1px 2px rgba(0, 0, 0, .3); --ji-shadow-md: 0 8px 24px rgba(0, 0, 0, .4); --ji-shadow-lg: 0 20px 48px rgba(0, 0, 0, .5);
 }
 @media (prefers-color-scheme: dark) {
@@ -136,7 +141,7 @@
     --ji-l1: #9DC2AA; --ji-l2: #86C6D8; --ji-l3: #DDA6CC; --ji-l4: #F0B85A; --ji-l5: #EE9163;
     --ji-success: #9DC2AA; --ji-success-soft: #1F2E25; --ji-danger: #F29A8E; --ji-danger-soft: #3A1F1B;
     --ji-code-bg: #0D120F; --ji-footer-bg: #0D120F;
-    --fq-series-1: #3593D0; --fq-series-2: #D9713C; --fq-grid: #324038; --fq-good: #9DC2AA; --fq-mixed: #F0B85A; --fq-risky: #F29A8E;
+    --fq-series-1: #3593D0; --fq-series-2: #D9713C; --fq-cat-1: #3FA77A; --fq-cat-2: #3593D0; --fq-cat-3: #D9713C; --fq-cat-4: #A77BDB; --fq-grid: #324038; --fq-good: #9DC2AA; --fq-mixed: #F0B85A; --fq-risky: #F29A8E;
     --ji-shadow-sm: 0 1px 2px rgba(0, 0, 0, .3); --ji-shadow-md: 0 8px 24px rgba(0, 0, 0, .4); --ji-shadow-lg: 0 20px 48px rgba(0, 0, 0, .5);
   }
 }

@@ -3,8 +3,8 @@
     // The path is passed on unchanged: /financeiq/lab/ -> <FINANCEIQ_ORIGIN>/financeiq/lab/
     // Put this block next to the Learn AI block, before the line that serves everything else.
     if (url.pathname === '/financeiq' || url.pathname.startsWith('/financeiq/')) {
-      // CHANGE THIS to your Finance IQ project's address from Cloudflare Pages (Deployments tab).
-      // financeiq.pages.dev is already taken by someone else, so yours will look like financeiq-abc.pages.dev.
+      // CHANGE THIS to your Finance IQ project's pages.dev address (no slash at the end).
+      // financeiq.pages.dev is taken by another site, so yours looks like financeiq-abc.pages.dev.
       const FINANCEIQ_ORIGIN = 'https://YOUR-PROJECT.pages.dev';
       const upstream = new URL(url.pathname + url.search, FINANCEIQ_ORIGIN);
       const headers = new Headers(request.headers);

@@ -1,0 +1,60 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHeader from '../../components/PageHeader.astro';
+import CollegePlanner from '../../components/islands/CollegePlanner';
+import { url } from '../../lib/site';
+---
+<BaseLayout title="College Money Planner" path="college" description="Compare up to three colleges on the full cost of attending: tuition, housing, scholarships, travel and loans. See what you would borrow and repay each month.">
+  <PageHeader eyebrow="College Money Planner" title="College Money Planner" lede="Compare colleges on what they really cost: every year of tuition, housing and travel, minus scholarships, plus the loan you would need and its interest." crumbs={[{ label: 'College Money Planner' }]} />
+  <div class="fq-wrap fq-college">
+    <CollegePlanner client:load />
+    <noscript><p class="fq-note">The planner needs JavaScript. You can still read <a href={url('learn/credit-and-borrowing')}>Credit and borrowing basics</a>.</p></noscript>
+
+    <div class="fq-prose fq-college__notes">
+      <h2>How the planner works</h2>
+      <ul>
+        <li>Each year's costs rise by the percentage you set. Scholarships and grants stay the same each year.</li>
+        <li>Each year is paid in this order: scholarships and grants, your work, then family help and savings until they run out. A loan covers the rest.</li>
+        <li>Money for each year is borrowed at the start of that year. Interest runs until repayment starts, depending on the option you choose.</li>
+        <li>Repayment is a fixed monthly amount over the years you set.</li>
+        <li>It does not include taxes, inflation in your salary, loan fees or repayment plans that depend on income.</li>
+      </ul>
+      <p>Not sure which college to compare first? Try the <a href={url('decisions/two-colleges')}>Two colleges, two prices</a> decision.</p>
+
+      <h2 id="us">US college finance</h2>
+      <p>This section is for students going to college in the United States.</p>
+      <ul>
+        <li><strong>Start with each college's net price calculator.</strong> US colleges that take part in federal student aid must have one on their website. It estimates your cost after grants, which is often far below the published price.</li>
+        <li><strong>Fill in the FAFSA form</strong> to apply for federal grants, work-study and student loans. Many colleges and states also use it for their own aid.</li>
+        <li><strong>Federal Direct Subsidized Loans</strong> charge no interest while you are in school or during the six month grace period. Choose "Not charged while I study" for these.</li>
+        <li><strong>Federal Direct Unsubsidized Loans</strong> build up interest from the first payment to your college. Choose "Builds up as simple interest" and 6 months.</li>
+      </ul>
+
+      <h2 id="india">Education loans in India</h2>
+      <p>This section is for students taking an education loan from a bank in India.</p>
+      <ul>
+        <li><strong>Repayment holiday.</strong> Under the Indian Banks' Association model education loan scheme, repayment usually starts one year after the course ends. Simple interest is charged during the course and that year. Choose "Builds up as simple interest" and 12 months.</li>
+        <li><strong>One portal for many banks.</strong> The government's PM-Vidyalaxmi portal lets you apply to several banks and track your application.</li>
+        <li><strong>Interest help for lower family incomes.</strong> For students at eligible institutions, the PM-Vidyalaxmi scheme offers full interest subvention during the repayment holiday on loans up to ₹10 lakh when family income is up to ₹4.5 lakh, and 3% interest subvention for some students with family income up to ₹8 lakh. Check the current rules on the portal.</li>
+      </ul>
+
+      <h2 id="elsewhere">Everywhere else</h2>
+      <p>Many countries have government student loans with their own rules. In some, what you repay depends on what you earn, not on a fixed monthly amount. Look for your country's official student finance website and use the planner to compare the total cost of each college.</p>
+
+      <h2>Sources</h2>
+      <ul class="fq-sources">
+        <li><a href="https://collegecost.ed.gov/net-price" rel="noopener">US Department of Education: College net price</a></li>
+        <li><a href="https://studentaid.gov/h/apply-for-aid/fafsa" rel="noopener">Federal Student Aid: The FAFSA form</a></li>
+        <li><a href="https://studentaid.gov/articles/subsidized-vs-unsubsidized-loans/" rel="noopener">Federal Student Aid: Subsidized and unsubsidized loans</a></li>
+        <li><a href="https://pmvidyalaxmi.co.in/PublicFaq.aspx" rel="noopener">PM-Vidyalaxmi: Questions and answers</a></li>
+      </ul>
+      <p class="fq-disclaimer">This planner is for learning and comparing. It is not financial advice, and real loan terms, fees and aid rules differ by country, lender and college.</p>
+    </div>
+  </div>
+</BaseLayout>
+<style>
+  .fq-college { padding-top: var(--ji-s-6); }
+  .fq-college__notes { margin-top: var(--ji-s-7); }
+  .fq-college__notes li { margin-bottom: var(--ji-s-2); }
+  .fq-sources li { margin-bottom: 4px; }
+</style>
