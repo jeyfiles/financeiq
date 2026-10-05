@@ -1,0 +1,17 @@
+---
+import LabShell from '../../../components/LabShell.astro';
+import LifeTimeline from '../../../components/islands/LifeTimeline';
+---
+<LabShell title="Life Savings Timeline" path="lab/life-timeline" description="Project your savings year by year to retirement: salary growth, spending by life stage, changing returns and life events such as a career break or a big expense." lede="See how your money grows, slows or keeps going as life changes, from your first job to retirement." lesson={{ href: 'learn/money-now-or-later', label: 'Money now or money later' }}>
+  <LifeTimeline client:load />
+  <Fragment slot="notes">
+    <h2>How it works</h2>
+    <ul>
+      <li>Each year: salary minus spending is what you save. Your salary rises by the percentage you set, unless an event changes it.</li>
+      <li>The money you have invested earns that stage's return during the year. The year's saving is added at the end of the year.</li>
+      <li>A career break means no salary for those years, while spending continues. A market fall replaces the return for that one year.</li>
+      <li>"Saved, not invested" adds up the same savings with no growth, to show what investing adds.</li>
+      <li>Taxes, fees and investment ups and downs from year to year are not included. Returns are assumptions, not predictions.</li>
+    </ul>
+  </Fragment>
+</LabShell>

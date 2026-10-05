@@ -4,13 +4,17 @@ import AxeBuilder from '@axe-core/playwright';
 
 test.use({ locale: 'en-US' });
 
+// Wait until every interactive part has started, so typing is not lost before the page is ready.
+const hydrated = (page: import('@playwright/test').Page) => page.waitForFunction(() => !document.querySelector('astro-island[ssr]'));
+
+
 test('currency change repaints amounts and is remembered', async ({ page }) => {
-  await page.goto('/financeiq/');
+  await page.goto('/financeiq/'); await hydrated(page);
   const hero = page.locator('.fq-hero__card [data-money="800"]');
   await expect(hero).toHaveText('$800');
   await page.getByLabel('Currency').selectOption('INR');
   await expect(hero).toHaveText('₹20,000');
-  await page.goto('/financeiq/learn/interest-and-growth/');
+  await page.goto('/financeiq/learn/interest-and-growth/'); await hydrated(page);
   await expect(page.locator('[data-money="1000"]').first()).toHaveText('₹25,000');
   await expect(page.getByLabel('Currency')).toHaveValue('INR');
 });
@@ -24,7 +28,7 @@ test('currency is guessed from the browser language', async ({ browser }) => {
 });
 
 test('make a money decision and see it marked done', async ({ page }) => {
-  await page.goto('/financeiq/decisions/new-phone/');
+  await page.goto('/financeiq/decisions/new-phone/'); await hydrated(page);
   await page.getByRole('button', { name: /Put it on a credit card/ }).click();
   const outcome = page.getByRole('region', { name: 'What happens' });
   await expect(outcome).toBeVisible();
@@ -34,13 +38,13 @@ test('make a money decision and see it marked done', async ({ page }) => {
   await expect(outcome.getByText(/Buy a cheaper model/)).toBeVisible();
   const axe = await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag22aa']).analyze();
   expect(axe.violations).toEqual([]);
-  await page.goto('/financeiq/decisions/');
+  await page.goto('/financeiq/decisions/'); await hydrated(page);
   await expect(page.locator('[data-done-for="decision:new-phone"]')).toBeVisible();
   await expect(page.locator('[data-done-for="decision:two-colleges"]')).toBeHidden();
 });
 
 test('two colleges shows the cost table after a choice', async ({ page }) => {
-  await page.goto('/financeiq/decisions/two-colleges/');
+  await page.goto('/financeiq/decisions/two-colleges/'); await hydrated(page);
   await page.getByRole('button', { name: /total cost is lower/ }).click();
   await expect(page.getByText('Right on the numbers')).toBeVisible();
   await expect(page.getByRole('table')).toContainText('$86,400');
@@ -48,7 +52,7 @@ test('two colleges shows the cost table after a choice', async ({ page }) => {
 });
 
 test('first paycheck: no plan ends in debt, a plan ends well', async ({ page }) => {
-  await page.goto('/financeiq/decisions/first-paycheck/');
+  await page.goto('/financeiq/decisions/first-paycheck/'); await hydrated(page);
   const save = page.getByLabel(/Savings each month/);
   const pot = page.getByLabel(/Set aside for known bills/);
   await save.fill('0'); await pot.fill('0');
@@ -63,7 +67,7 @@ test('first paycheck: no plan ends in debt, a plan ends well', async ({ page }) 
 });
 
 test('Finance IQ check: answer all eight and get a topic breakdown', async ({ page }) => {
-  await page.goto('/financeiq/check/');
+  await page.goto('/financeiq/check/'); await hydrated(page);
   await page.getByRole('button', { name: 'Start the questions' }).click();
   for (let i = 0; i < 8; i++) {
     await expect(page.getByText(`Question ${i + 1} of 8`)).toBeVisible();
@@ -74,14 +78,14 @@ test('Finance IQ check: answer all eight and get a topic breakdown', async ({ pa
   await expect(page.getByRole('heading', { name: /Your learning score: 6 out of 8/ })).toBeFocused();
   await expect(page.locator('.fq-topics li')).toHaveCount(8);
   await expect(page.locator('.fq-topics .is-wrong')).toHaveCount(2);
-  await page.goto('/financeiq/');
+  await page.goto('/financeiq/'); await hydrated(page);
   await expect(page.getByText('6 of 8')).toBeVisible();
-  await page.goto('/financeiq/check/');
+  await page.goto('/financeiq/check/'); await hydrated(page);
   await expect(page.getByText(/Your last result/)).toBeVisible();
 });
 
 test('savings goal: results follow the inputs, errors are explained', async ({ page }) => {
-  await page.goto('/financeiq/lab/savings-goal/');
+  await page.goto('/financeiq/lab/savings-goal/'); await hydrated(page);
   await page.getByLabel('Interest your savings earn').fill('0');
   await page.getByLabel('How much do you need?').fill('1200');
   await page.getByLabel('Already saved for it').fill('0');
@@ -94,7 +98,7 @@ test('savings goal: results follow the inputs, errors are explained', async ({ p
 
 test('start now or later: chart has a table and keyboard readout', async ({ page }, info) => {
   test.skip(info.project.name === 'phone', 'desktop only');
-  await page.goto('/financeiq/lab/start-now-or-later/');
+  await page.goto('/financeiq/lab/start-now-or-later/'); await hydrated(page);
   await expect(page.locator('.fq-big')).toContainText('more at age 50');
   const svg = page.locator('.fq-chart__plot svg');
   await svg.focus();
@@ -105,7 +109,7 @@ test('start now or later: chart has a table and keyboard readout', async ({ page
 });
 
 test('real cost: installments cost more than upfront', async ({ page }) => {
-  await page.goto('/financeiq/lab/real-cost/');
+  await page.goto('/financeiq/lab/real-cost/'); await hydrated(page);
   await expect(page.locator('.fq-big')).toContainText('$114');
   await page.getByLabel('Interest rate on the plan').fill('0');
   await page.getByLabel('One-time fee for the plan').fill('0');
@@ -113,16 +117,16 @@ test('real cost: installments cost more than upfront', async ({ page }) => {
 });
 
 test('lesson can be marked as read', async ({ page }) => {
-  await page.goto('/financeiq/learn/inflation/');
+  await page.goto('/financeiq/learn/inflation/'); await hydrated(page);
   await page.getByRole('button', { name: 'Mark this lesson as read' }).click();
   await expect(page.getByRole('button', { name: 'Marked as read' })).toHaveAttribute('aria-pressed', 'true');
-  await page.goto('/financeiq/learn/');
+  await page.goto('/financeiq/learn/'); await hydrated(page);
   await expect(page.locator('[data-done-for="lesson:inflation"]')).toBeVisible();
 });
 
 test('phone menu opens and closes with Escape', async ({ page }, info) => {
   test.skip(info.project.name === 'desktop', 'phone only');
-  await page.goto('/financeiq/');
+  await page.goto('/financeiq/'); await hydrated(page);
   const btn = page.getByRole('button', { name: 'Menu' });
   await btn.click();
   await expect(page.getByRole('link', { name: 'Money Lab' }).first()).toBeVisible();

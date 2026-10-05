@@ -7,7 +7,7 @@ const PAGES = [
   '', 'decisions/', 'check/', 'lab/', 'learn/', 'about/',
   'decisions/first-paycheck/', 'decisions/new-phone/', 'decisions/two-colleges/',
   'decisions/guaranteed-returns/', 'decisions/subscriptions/', 'decisions/credit-card-bill/',
-  'college/', 'lab/savings-goal/', 'lab/start-now-or-later/', 'lab/real-cost/',
+  'college/', 'lab/money-now-or-later/', 'learn/money-now-or-later/', 'lab/savings-goal/', 'lab/start-now-or-later/', 'lab/real-cost/',
   'learn/make-a-spending-plan/', 'learn/interest-and-growth/', 'learn/inflation/',
   'learn/credit-and-borrowing/', 'learn/risk-and-return/', 'learn/spot-a-money-scam/',
 ];

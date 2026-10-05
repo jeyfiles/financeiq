@@ -118,6 +118,65 @@ export const LESSONS: Lesson[] = [
     ],
   },
   {
+    slug: 'money-now-or-later',
+    title: 'Money now or money later',
+    topic: 'interest',
+    minutes: 3,
+    summary: 'Money today is worth more than the same amount later. Future value and present value let you compare the two fairly.',
+    bigIdea: 'To compare money at different times, move it to the same point in time first: grow today\'s money forward, or bring future money back to today.',
+    sections: [
+      {
+        heading: 'Why money now is worth more',
+        body: [
+          'Money you have today can be invested and earn a return. Money you get later cannot earn anything until it arrives, and prices may have risen by then.',
+          'So {{1000}} today and {{1000}} in five years are not the same. To compare them, you need a rate: what you could safely earn in the meantime.',
+        ],
+      },
+      {
+        heading: 'Future value: what money today grows to',
+        body: [
+          'Future value (FV) = present value × (1 + r) to the power n, where r is the yearly return and n is the number of years.',
+          'A gift of {{5000}} at age 18, invested at 5% a year, grows to about {{38808}} by age 60. That is 42 years of growth on growth.',
+          'For the same saving every year, the formula is FV = P × ((1 + r) to the power n − 1) ÷ r. Saving {{6000}} a year at 6% from 22 to 60 grows to about {{815425}}, from {{228000}} put in.',
+        ],
+      },
+      {
+        heading: 'Present value: what future money is worth today',
+        body: [
+          'Present value (PV) = future value ÷ (1 + r) to the power n. It answers: how much would I need today to end up with that amount later?',
+          'This is how you judge an offer. If someone promises {{120000}} in 10 years for {{100000}} now, and a safe bond pays 4%, the promise is worth only about {{81068}} today. You would be giving up {{100000}} for something worth less.',
+        ],
+      },
+    ],
+    example: {
+      title: 'Worked example: early saver or late saver',
+      lines: [
+        'You save {{10000}} a year from age 25 to 35, then stop. By 35 you have about {{166455}}, and it keeps growing at 8% until 65: about {{1674978}}.',
+        'Your friend saves {{10000}} a year from 36 to 65. They put in {{300000}}, almost three times as much, and end with about {{1132832}}.',
+        'Starting early wins because your money had 30 extra years to grow.',
+      ],
+    },
+    terms: [
+      { term: 'Present value (PV)', meaning: 'What a future amount is worth in today\'s money.' },
+      { term: 'Future value (FV)', meaning: 'What an amount today grows to after a number of years.' },
+      { term: 'Discount rate', meaning: 'The rate you use to bring future money back to today. Often what you could earn safely elsewhere.' },
+    ],
+    check: {
+      question: 'Someone offers you 1,100 in one year or 1,000 today. You can earn 12% a year safely. Which is worth more?',
+      options: ['1,100 in one year', '1,000 today', 'They are worth the same'],
+      answer: 1,
+      explain: '1,000 today grows to 1,120 in a year at 12%, which is more than 1,100. The present value of 1,100 is about 982, less than 1,000.',
+    },
+    tryNext: [
+      { href: 'lab/money-now-or-later', label: 'Money Lab: Money now or later' },
+      { href: 'lab/real-cost', label: 'Money Lab: Real purchase cost' },
+    ],
+    sources: [
+      { title: 'Investor.gov: What is compound interest?', url: 'https://www.investor.gov/additional-resources/information/youth/teachers-classroom-resources/what-compound-interest' },
+      { title: 'Investor.gov: Compound interest calculator', url: 'https://www.investor.gov/financial-tools-calculators/calculators/compound-interest-calculator' },
+    ],
+  },
+  {
     slug: 'inflation',
     title: 'Inflation: why prices creep up',
     topic: 'inflation',

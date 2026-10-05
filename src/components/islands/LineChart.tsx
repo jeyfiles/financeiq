@@ -13,6 +13,8 @@ interface Props {
   /** Short axis numbers, for example 12K. */
   formatAxis: (n: number) => string;
   height?: number;
+  /** Numbered markers on the x axis, for example life events. Their meaning is listed below the chart by the page. */
+  markers?: { index: number; label: string }[];
 }
 
 /** Clean axis steps (1, 2, 2.5 or 5 times a power of ten), about four of them. */
@@ -25,7 +27,7 @@ export function niceTicks(v: number): number[] {
   return Array.from({ length: Math.round(top / step) + 1 }, (_, i) => i * step);
 }
 
-export default function LineChart({ title, series, xLabels, xTitle, format, formatAxis, height = 280 }: Props) {
+export default function LineChart({ title, series, xLabels, xTitle, format, formatAxis, height = 280, markers = [] }: Props) {
   const wrap = useRef<HTMLDivElement>(null);
   const [w, setW] = useState(640);
   const [hover, setHover] = useState<number | null>(null);
@@ -97,6 +99,13 @@ export default function LineChart({ title, series, xLabels, xTitle, format, form
             <text x={x(i)} y={height - pad.b + 20} text-anchor={i === 0 ? 'start' : i === n - 1 ? 'end' : 'middle'} class="fq-chart__axis">{l}</text>
           ))}
           <text x={pad.l + iw / 2} y={height - 4} text-anchor="middle" class="fq-chart__axis">{xTitle}</text>
+          {markers.map((m, k) => (
+            <g aria-hidden="true">
+              <line x1={x(m.index)} x2={x(m.index)} y1={pad.t + 14} y2={pad.t + ih} stroke="var(--ji-line-strong)" stroke-width="1" opacity="0.6" />
+              <circle cx={x(m.index)} cy={pad.t + 6} r="9" fill="var(--ji-surface)" stroke="var(--ji-ink-2)" stroke-width="1.5" />
+              <text x={x(m.index)} y={pad.t + 10} text-anchor="middle" class="fq-chart__marker">{k + 1}</text>
+            </g>
+          ))}
           {series.map((s) => (
             <path d={path(s.values)} fill="none" stroke={s.color} stroke-width="2" stroke-linejoin="round" stroke-linecap="round" />
           ))}
@@ -113,6 +122,7 @@ export default function LineChart({ title, series, xLabels, xTitle, format, form
         {hover !== null && (
           <div class="fq-chart__tip" style={{ left: `${tipLeft}%`, transform: `translateX(${tipLeft > 60 ? '-105%' : '5%'})` }} aria-hidden="true">
             <div class="fq-chart__tip-x">{xTitle} {xLabels[hover]}</div>
+            {markers.filter((m) => m.index === hover).map((m) => <div class="fq-chart__tip-x">{m.label}</div>)}
             {series.map((s) => (
               <div class="fq-chart__tip-row"><span class="fq-chart__tip-key" style={{ background: s.color }} /><strong>{format(s.values[hover])}</strong> <span>{s.name}</span></div>
             ))}

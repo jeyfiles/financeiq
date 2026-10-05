@@ -1,0 +1,12 @@
+---
+import LabShell from '../../../components/LabShell.astro';
+import MoneyNowLater from '../../../components/islands/MoneyNowLater';
+---
+<LabShell title="Money now or later" path="lab/money-now-or-later" description="Present value and future value, step by step: grow a gift or yearly savings, judge an offer of money later, and track salary, spending and savings to retirement." lede="What is money today worth later, and what is money later worth today?" lesson={{ href: 'learn/money-now-or-later', label: 'Money now or money later' }}>
+  <MoneyNowLater client:load />
+  <Fragment slot="notes">
+    <h2>How it works</h2>
+    <p>These are the standard textbook formulas, with returns added once a year. Yearly savings are added at the end of each year. Real returns go up and down, so treat the rate as an average guess and try a few.</p>
+    <p>In the salary table, taxes are not included: use take-home pay if you want a closer answer.</p>
+  </Fragment>
+</LabShell>

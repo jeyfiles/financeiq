@@ -5,10 +5,11 @@ import { url } from '../../lib/site';
 const labs = [
   { slug: 'savings-goal', title: 'Savings goal', q: 'How much do I need to save each month?', text: 'Enter a goal, a date and what you already have. See the monthly amount and how your savings build up.' },
   { slug: 'start-now-or-later', title: 'Start now or later', q: 'What does waiting a few years cost?', text: 'Compare the same monthly amount started now and a few years later. Change the return to see the range.' },
+  { slug: 'money-now-or-later', title: 'Money now or later', q: 'What is money worth at a different time?', text: 'Present value and future value, step by step. Grow a gift or yearly savings, judge an offer, and work out salary, spending and savings year by year to retirement.' },
   { slug: 'real-cost', title: 'Real purchase cost', q: 'Pay upfront or in installments?', text: 'Add the interest and fees to see the total you really pay, and the monthly payment you would sign up for.' },
 ];
 ---
-<BaseLayout title="Money Lab" path="lab" description="Three money calculators for students: a savings goal, starting now versus later, and the real cost of installments. Change the numbers and see what moves.">
+<BaseLayout title="Money Lab" path="lab" description="Money calculators for students: savings goal, start now or later, present and future value, salary and savings to retirement, and the real cost of installments.">
   <PageHeader eyebrow="Money Lab" title="Money Lab" lede="Change the numbers and watch the result move. Every calculator works in your chosen currency." crumbs={[{ label: 'Money Lab' }]} />
   <div class="fq-wrap">
     <ul class="fq-grid fq-labs">

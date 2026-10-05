@@ -20,10 +20,10 @@ const texts = (v: unknown): string[] => {
 const problems = (strings: string[]) => strings.flatMap((t) => findProblems(t));
 
 describe('release scope', () => {
-  it('has 8 quiz questions, 6 decisions and 6 lessons', () => {
+  it('has 8 quiz questions, 6 decisions and 7 lessons', () => {
     expect(QUIZ.length).toBe(8);
     expect(SCENARIOS.length).toBe(6);
-    expect(LESSONS.length).toBe(6);
+    expect(LESSONS.length).toBe(7);
   });
   it('the quiz covers every topic once', () => {
     expect(new Set(QUIZ.map((q) => q.topic)).size).toBe(TOPICS.length);

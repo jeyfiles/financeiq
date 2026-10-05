@@ -13,7 +13,7 @@ Where rules really differ by country (taxes, credit records, where to report a s
 |---|---|---|
 | Your Money. Your Move. | `/financeiq/decisions/` | Six decisions from school to college to a first paycheck |
 | Check your Finance IQ | `/financeiq/check/` | Eight questions, feedback on every answer, a topic breakdown |
-| Money Lab | `/financeiq/lab/` | Savings goal, start now or later, real purchase cost |
+| Money Lab | `/financeiq/lab/` | Savings goal, start now or later, money now or later (present and future value, and salary and savings to retirement), real purchase cost |
 | Learn in 3 minutes | `/financeiq/learn/` | Six short lessons with a worked example and a self check |
 | College Money Planner | `/financeiq/college/` | Compare up to three colleges: full cost, aid, how the gap is paid, loan, repayment and interest. Saved in the browser |
 
@@ -44,6 +44,7 @@ npm run dev          # opens http://localhost:4321/financeiq/
 | `src/data/lessons.ts` | The six lessons. Amounts are written as `{{1000}}` |
 | `src/lib/calc.ts` | All money maths (pure functions, unit tested) |
 | `src/lib/money.ts` | Currencies, scaling and formatting |
+| `src/lib/tvm.ts` | Present and future value maths, and the salary, spending and savings table (unit tested against the reference sheet) |
 | `src/lib/college.ts` | College Money Planner maths and example colleges (unit tested) |
 | `src/components/islands/` | Interactive parts: Quiz, Scenario, Paycheck, the three calculators and the charts |
 | `src/pages/` | One file per address |
